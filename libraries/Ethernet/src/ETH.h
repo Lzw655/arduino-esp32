@@ -61,7 +61,7 @@
 // #define ETH_PHY_SPI         SPI
 
 // This will be uncommented once custom SPI support is available in ESP-IDF
-#define ETH_SPI_SUPPORTS_CUSTOM 1
+#define ETH_SPI_SUPPORTS_CUSTOM 0
 
 #include "WiFi.h"
 #if ETH_SPI_SUPPORTS_CUSTOM
@@ -87,20 +87,20 @@ typedef enum { ETH_CLOCK_GPIO0_IN, ETH_CLOCK_GPIO0_OUT, ETH_CLOCK_GPIO16_OUT, ET
 #define ETH_PHY_SPI_FREQ_MHZ 20
 #endif /* ETH_PHY_SPI_FREQ_MHZ */
 
-typedef enum { 
+typedef enum {
 #if CONFIG_ETH_USE_ESP32_EMAC
-    ETH_PHY_LAN8720, ETH_PHY_TLK110, ETH_PHY_RTL8201, ETH_PHY_DP83848, ETH_PHY_KSZ8041, ETH_PHY_KSZ8081, 
+    ETH_PHY_LAN8720, ETH_PHY_TLK110, ETH_PHY_RTL8201, ETH_PHY_DP83848, ETH_PHY_KSZ8041, ETH_PHY_KSZ8081,
 #endif /* CONFIG_ETH_USE_ESP32_EMAC */
 #if CONFIG_ETH_SPI_ETHERNET_DM9051
-    ETH_PHY_DM9051, 
+    ETH_PHY_DM9051,
 #endif
 #if CONFIG_ETH_SPI_ETHERNET_W5500
-    ETH_PHY_W5500, 
+    ETH_PHY_W5500,
 #endif
 #if CONFIG_ETH_SPI_ETHERNET_KSZ8851SNL
     ETH_PHY_KSZ8851,
 #endif
-    ETH_PHY_MAX 
+    ETH_PHY_MAX
 } eth_phy_type_t;
 
 class ETHClass {
@@ -207,9 +207,9 @@ class ETHClass {
 #endif /* CONFIG_ETH_USE_ESP32_EMAC */
 
         static bool ethDetachBus(void * bus_pointer);
-        bool beginSPI(eth_phy_type_t type, uint8_t phy_addr, int cs, int irq, int rst, 
+        bool beginSPI(eth_phy_type_t type, uint8_t phy_addr, int cs, int irq, int rst,
 #if ETH_SPI_SUPPORTS_CUSTOM
-            SPIClass * spi, 
+            SPIClass * spi,
 #endif
             int sck, int miso, int mosi, spi_host_device_t spi_host, uint8_t spi_freq_mhz);
 };
